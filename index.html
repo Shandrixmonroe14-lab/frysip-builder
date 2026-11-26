@@ -1,0 +1,898 @@
+<style>
+:root {
+  --blue: #1f3fd1;
+  --red: #d3202a;
+  --yellow: #ffd93a;
+  --wood: #e3a867;
+  --paper: #fffaf3;
+  --ink: #231b18;
+  --muted: #806a5c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+}
+
+.frysip {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 16px 30px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 10%, #ff5a5a22 0 12%, transparent 13%),
+    repeating-linear-gradient(135deg, #1f3fd1 0 28px, #2a4be0 28px 56px);
+}
+
+.frysip-title {
+  text-align: center;
+  color: white;
+  font-size: clamp(42px, 10vw, 88px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 0 var(--red);
+}
+
+.frysip-title small {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 10px auto 0;
+  padding: 5px 12px;
+  background: var(--yellow);
+  color: #17235f;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-shadow: none;
+  transform: rotate(-2deg);
+}
+
+.frysip-intro {
+  margin: 20px auto 24px;
+  color: white;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.frysip-layout {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(260px, 1.25fr) minmax(190px, .9fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.frysip-banner {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: var(--yellow);
+  color: #17235f;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0 #0006;
+  transform: rotate(-2deg);
+}
+
+.frysip-menu {
+  min-height: 180px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border: 8px solid var(--red);
+  border-radius: 24px;
+  background: radial-gradient(circle at 30% 30%, #f0bd80, var(--wood));
+}
+
+.frysip-option {
+  width: 108px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .15s;
+}
+
+.frysip-option:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.frysip-option:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+.frysip-option-image {
+  width: 88px;
+  height: 78px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 6px;
+  overflow: hidden;
+  border: 4px solid #cfd4de;
+  border-radius: 18px;
+  background: #fffaf3;
+  box-shadow: inset 0 0 8px #0002;
+}
+
+.frysip-option-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frysip-option-label {
+  display: inline-block;
+  max-width: 100%;
+  padding: 4px 7px;
+  background: var(--paper);
+  box-shadow: 1px 1px 0 #0004;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.frysip-option-price {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.frysip-option.is-selected .frysip-option-image {
+  outline: 4px solid var(--yellow);
+  border-color: var(--ink);
+}
+
+.frysip-option.is-selected .frysip-option-label {
+  background: var(--yellow);
+}
+
+.frysip-product {
+  min-width: 0;
+  padding: 16px;
+  border: 4px solid #111;
+  border-radius: 24px;
+  background: #c8141f;
+  box-shadow: 4px 4px 0 #0005;
+}
+
+.frysip-product-heading {
+  margin: 0 0 4px;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.frysip-product-subtitle {
+  margin: 0 0 14px;
+  color: #ffe6d1;
+  text-align: center;
+  font-size: 12px;
+}
+
+.frysip-cup-stage {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  aspect-ratio: 4 / 5;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f6e4d0;
+}
+
+/* Upper clear cup */
+.frysip-upper-cup {
+  position: absolute;
+  z-index: 3;
+  left: 18%;
+  top: 5%;
+  width: 64%;
+  height: 46%;
+  overflow: hidden;
+  border: 3px solid #ffffffb8;
+  border-top: 7px solid #ffffffdb;
+  border-radius: 10% 10% 20% 20% / 8% 8% 15% 15%;
+  background: linear-gradient(110deg, #ffffff8a, #ffffff15 35%, #ffffff58 70%, #ffffff18);
+  box-shadow: inset 7px 0 9px #fff7, inset -7px 0 9px #fff6;
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%);
+  pointer-events: none;
+}
+
+.frysip-upper-rim {
+  position: absolute;
+  z-index: 5;
+  left: 15%;
+  top: 3%;
+  width: 70%;
+  height: 8%;
+  border: 4px solid #ffffffd9;
+  border-radius: 50%;
+  background: #ffffff30;
+  box-shadow: 0 3px 4px #0002;
+  pointer-events: none;
+}
+
+/* CSS-drawn food inside the upper cup */
+.frysip-cup-food {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%);
+  pointer-events: none;
+}
+
+/* Animated fries */
+.frysip-fries {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.frysip-fries.is-visible {
+  display: block;
+}
+
+.frysip-fry {
+  --powder: #f4e7b9;
+  position: absolute;
+  bottom: 5%;
+  width: 9%;
+  height: 72%;
+  border: 1px solid rgba(132, 75, 20, .35);
+  border-radius: 5px 5px 3px 3px;
+  background:
+    radial-gradient(circle at 25% 22%, var(--powder) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 70% 48%, var(--powder) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 45% 76%, var(--powder) 0 1.5px, transparent 2px),
+    linear-gradient(90deg, #e7a83f, #ffd77a 45%, #e9a43b);
+  box-shadow: inset 2px 0 rgba(255,255,255,.25);
+  animation: frysip-fry-bob 1.8s ease-in-out infinite alternate;
+}
+
+.frysip-fries[data-flavor="sourcream"] .frysip-fry {
+  --powder: #f4e7b9;
+}
+
+.frysip-fries[data-flavor="bbq"] .frysip-fry {
+  --powder: #9b4525;
+}
+
+.frysip-fries[data-flavor="cheese"] .frysip-fry {
+  --powder: #ff9e18;
+}
+
+.frysip-fry:nth-child(1)  { left: 7%;  height: 64%; transform: rotate(-27deg); }
+.frysip-fry:nth-child(2)  { left: 15%; height: 82%; transform: rotate(-17deg); animation-delay: -.3s; }
+.frysip-fry:nth-child(3)  { left: 23%; height: 73%; transform: rotate(-9deg); animation-delay: -.6s; }
+.frysip-fry:nth-child(4)  { left: 31%; height: 90%; transform: rotate(-3deg); animation-delay: -.2s; }
+.frysip-fry:nth-child(5)  { left: 39%; height: 77%; transform: rotate(7deg); animation-delay: -.7s; }
+.frysip-fry:nth-child(6)  { left: 47%; height: 86%; transform: rotate(13deg); animation-delay: -.4s; }
+.frysip-fry:nth-child(7)  { left: 55%; height: 73%; transform: rotate(19deg); animation-delay: -.8s; }
+.frysip-fry:nth-child(8)  { left: 63%; height: 84%; transform: rotate(25deg); animation-delay: -.1s; }
+.frysip-fry:nth-child(9)  { left: 71%; height: 68%; transform: rotate(30deg); animation-delay: -.5s; }
+.frysip-fry:nth-child(10) { left: 79%; height: 55%; transform: rotate(12deg); animation-delay: -.9s; }
+.frysip-fry:nth-child(11) { left: 86%; height: 61%; transform: rotate(-20deg); animation-delay: -.2s; }
+
+@keyframes frysip-fry-bob {
+  from { margin-bottom: 0; }
+  to   { margin-bottom: 4px; }
+}
+
+/* Animated CSS chicken popcorn */
+.frysip-poppers {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.frysip-poppers.is-visible {
+  display: block;
+}
+
+.frysip-popcorn-piece {
+  position: absolute;
+  width: 17%;
+  aspect-ratio: 1;
+  border: 1px solid #c7862c;
+  border-radius: 42% 55% 48% 38%;
+  background:
+    radial-gradient(circle at 30% 25%, #fff0b4 0 12%, transparent 14%),
+    radial-gradient(circle at 65% 65%, #d98c2e 0 18%, transparent 20%),
+    #f5c45c;
+  box-shadow: inset -3px -3px 0 #d99537, 1px 2px 2px #0002;
+  animation: frysip-popcorn-bounce 1.5s ease-in-out infinite alternate;
+}
+
+.frysip-popcorn-piece:nth-child(1) { left: 15%; top: 30%; transform: rotate(-15deg); }
+.frysip-popcorn-piece:nth-child(2) { left: 34%; top: 23%; transform: rotate(18deg); animation-delay: -.4s; }
+.frysip-popcorn-piece:nth-child(3) { left: 54%; top: 31%; transform: rotate(35deg); animation-delay: -.8s; }
+.frysip-popcorn-piece:nth-child(4) { left: 72%; top: 25%; transform: rotate(-22deg); animation-delay: -.2s; }
+.frysip-popcorn-piece:nth-child(5) { left: 25%; top: 47%; transform: rotate(25deg); animation-delay: -.6s; }
+.frysip-popcorn-piece:nth-child(6) { left: 48%; top: 45%; transform: rotate(-30deg); animation-delay: -.3s; }
+.frysip-popcorn-piece:nth-child(7) { left: 66%; top: 48%; transform: rotate(12deg); animation-delay: -.7s; }
+
+@keyframes frysip-popcorn-bounce {
+  from { translate: 0 0; }
+  to   { translate: 0 -4px; }
+}
+
+/* CSS mini hotdogs */
+.frysip-hotdogs {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.frysip-hotdogs.is-visible {
+  display: block;
+}
+
+.frysip-mini-hotdog {
+  position: absolute;
+  width: 30%;
+  height: 12%;
+  border: 1px solid #8e3c25;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #e88a52 0%, #b94d2e 45%, #8e3824 100%);
+  box-shadow: inset 0 2px 0 #f6b17a, 0 2px 2px #0003;
+  animation: frysip-hotdog-wiggle 1.7s ease-in-out infinite alternate;
+}
+
+.frysip-mini-hotdog::before {
+  content: "";
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 28%;
+  height: 30%;
+  border-radius: 999px;
+  background: #f3c24d;
+  box-shadow: 0 2px 0 #b54a2b;
+}
+
+.frysip-mini-hotdog:nth-child(1) {
+  left: 18%;
+  top: 65%;
+  transform: rotate(-18deg);
+}
+
+.frysip-mini-hotdog:nth-child(2) {
+  left: 47%;
+  top: 68%;
+  transform: rotate(12deg);
+  animation-delay: -.5s;
+}
+
+.frysip-mini-hotdog:nth-child(3) {
+  left: 33%;
+  top: 80%;
+  transform: rotate(-5deg);
+  animation-delay: -.9s;
+}
+
+@keyframes frysip-hotdog-wiggle {
+  from { margin-top: 0; }
+  to   { margin-top: 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frysip-fry,
+  .frysip-popcorn-piece,
+  .frysip-mini-hotdog {
+    animation: none;
+  }
+}
+
+/* Lower drink cup */
+.frysip-lower-cup {
+  position: absolute;
+  z-index: 1;
+  left: 24%;
+  top: 44%;
+  width: 52%;
+  height: 48%;
+  overflow: hidden;
+  border: 3px solid #ffffffc9;
+  border-top: 5px solid #ffffffdc;
+  border-radius: 8% 8% 18% 18% / 5% 5% 10% 10%;
+  background: linear-gradient(90deg, #ffffff8a, #ffffff16 35%, #ffffff55 72%, #ffffff20);
+  box-shadow: inset 7px 0 9px #fff7, inset -7px 0 9px #fff6;
+  clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%);
+}
+
+.frysip-drink-liquid {
+  position: absolute;
+  inset: 12% 4% 3%;
+  border-radius: 8% 8% 18% 18%;
+  background: linear-gradient(90deg, #0002, transparent 30%, #fff2 65%, #0002), #7a351d;
+}
+
+.frysip-lower-cup[data-drink="gulaman"] .frysip-drink-liquid {
+  background: linear-gradient(90deg, #0002, transparent 30%, #fff2 65%, #0002), #7b3020;
+}
+
+.frysip-lower-cup[data-drink="coke"] .frysip-drink-liquid {
+  background: linear-gradient(90deg, #0002, transparent 30%, #fff2 65%, #0002), #4b1c14;
+}
+
+.frysip-drink-name {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 62%;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #0008;
+}
+
+.frysip-cup-shine {
+  position: absolute;
+  z-index: 4;
+  left: 31%;
+  top: 48%;
+  width: 5%;
+  height: 34%;
+  border-radius: 50%;
+  background: #ffffff70;
+  pointer-events: none;
+}
+
+.frysip-price {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 24px;
+  background: var(--yellow);
+  color: #17235f;
+  border-radius: 10px 18px 9px 18px;
+  font-size: 30px;
+  font-weight: 900;
+  transform: rotate(-2deg);
+}
+
+.frysip-receipt {
+  padding: 16px 14px;
+  background: var(--paper);
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  box-shadow: 4px 4px 0 #0007;
+  transform: rotate(1deg);
+}
+
+.frysip-receipt h2 {
+  margin: 0;
+  text-align: center;
+  font: 900 25px Arial, sans-serif;
+  line-height: 1;
+}
+
+.frysip-receipt h3 {
+  margin: 6px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #888;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.frysip-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  color: #667;
+}
+
+.frysip-receipt-row.is-on {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.frysip-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #888;
+  font-weight: 900;
+}
+
+.frysip-barcode {
+  height: 34px;
+  margin: 12px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #111 0 2px,
+    transparent 2px 4px,
+    #111 4px 5px,
+    transparent 5px 8px
+  );
+}
+
+.frysip-pack {
+  width: 100%;
+  padding: 11px;
+  border: 2px solid var(--ink);
+  background: white;
+  font: 800 12px Arial, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.frysip-pack:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.frysip-pack:not(:disabled):hover {
+  background: var(--ink);
+  color: white;
+}
+
+.frysip-reset {
+  display: block;
+  margin: 10px auto 0;
+  border: 0;
+  background: transparent;
+  color: #445;
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.frysip-note {
+  margin-top: 12px;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 850px) {
+  .frysip-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .frysip-product {
+    order: -1;
+  }
+
+  .frysip-cup-stage {
+    max-width: 340px;
+  }
+
+  .frysip-menu {
+    min-height: 140px;
+  }
+}
+</style>
+
+<div class="frysip" id="frysip-builder">
+  <header class="frysip-title">
+    FRYSIP
+    <small>YOUR FRIES · YOUR WAY</small>
+  </header>
+
+  <p class="frysip-intro">
+    Build your own snack cup with your favorite fries flavors, add-ons, and drink.
+  </p>
+
+  <div class="frysip-layout">
+    <section>
+      <div class="frysip-banner" id="frysip-banner">Choose your fries</div>
+      <div class="frysip-menu" id="frysip-menu"></div>
+    </section>
+
+    <section class="frysip-product">
+      <h2 class="frysip-product-heading">Your FRYSIP Cup</h2>
+      <p class="frysip-product-subtitle">Your selected ingredients, stacked in one cup</p>
+
+      <div class="frysip-cup-stage" id="frysip-cup">
+        <div class="frysip-lower-cup" id="frysip-lower-cup" data-drink="gulaman">
+          <div class="frysip-drink-liquid"></div>
+          <div class="frysip-drink-name" id="frysip-drink-name">GULAMAN</div>
+        </div>
+
+        <div class="frysip-cup-food">
+          <div class="frysip-fries" id="frysip-fries" data-flavor="sourcream">
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+            <span class="frysip-fry"></span>
+          </div>
+
+          <div class="frysip-poppers" id="frysip-poppers">
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+            <span class="frysip-popcorn-piece"></span>
+          </div>
+
+          <div class="frysip-hotdogs" id="frysip-hotdogs">
+            <span class="frysip-mini-hotdog"></span>
+            <span class="frysip-mini-hotdog"></span>
+            <span class="frysip-mini-hotdog"></span>
+          </div>
+        </div>
+
+        <div class="frysip-upper-cup"></div>
+        <div class="frysip-upper-rim"></div>
+        <div class="frysip-cup-shine"></div>
+      </div>
+
+      <div class="frysip-price" id="frysip-price">₱49</div>
+    </section>
+
+    <aside class="frysip-receipt">
+      <h2>FRYSIP</h2>
+      <h3>SNACK CUP ORDER</h3>
+
+      <div id="frysip-rows"></div>
+
+      <div class="frysip-total">
+        <span>TOTAL</span>
+        <span id="frysip-total">₱49</span>
+      </div>
+
+      <div class="frysip-barcode"></div>
+
+      <button class="frysip-pack" id="frysip-pack" disabled="">
+        Complete your cup
+      </button>
+
+      <button class="frysip-reset" id="frysip-reset">
+        Start over
+      </button>
+    </aside>
+  </div>
+
+  <p class="frysip-note">
+    Select any fries flavors and add-ons, then choose one drink.
+  </p>
+</div>
+
+<script>
+(function () {
+  const root = document.getElementById("frysip-builder");
+  if (!root) return;
+
+  const menu = root.querySelector("#frysip-menu");
+  const banner = root.querySelector("#frysip-banner");
+  const rows = root.querySelector("#frysip-rows");
+  const total = root.querySelector("#frysip-total");
+  const price = root.querySelector("#frysip-price");
+  const pack = root.querySelector("#frysip-pack");
+  const lowerCup = root.querySelector("#frysip-lower-cup");
+  const drinkName = root.querySelector("#frysip-drink-name");
+
+  const images = {
+    sourcream: "https://shandrixmonroe14-emryp.wordpress.com/wp-content/uploads/2026/11/a43e8b1c-4809-44a9-8a20-e1feea9ef6a5.jpg",
+    bbq: "https://shandrixmonroe14-emryp.wordpress.com/wp-content/uploads/2026/11/b4300c75-3d4f-406e-abfe-a1c228e79036.jpg",
+    cheese: "https://shandrixmonroe14-emryp.wordpress.com/wp-content/uploads/2026/11/ccf1a24c-9ca2-49c2-badb-b408a7146ecd.jpg?w=1024",
+    hotdogs: "https://shandrixmonroe14-emryp.wordpress.com/wp-content/uploads/2026/11/d709adbc-eb9e-4a0c-a9c5-cfa59202b19c.jpg?w=1024",
+    poppers: "https://shandrixmonroe14-emryp.wordpress.com/wp-content/uploads/2026/11/6f81a345-43a5-4e09-9669-392280715b38.jpg?w=1024"
+  };
+
+  const flavorOptions = [
+    { id: "sourcream", name: "Sour Cream", price: 0 },
+    { id: "bbq", name: "BBQ", price: 0 },
+    { id: "cheese", name: "Cheese", price: 0 }
+  ];
+
+  const addonOptions = [
+    { id: "hotdogs", name: "Mini hotdogs", price: 10 },
+    { id: "poppers", name: "Chicken popcorn", price: 10 }
+  ];
+
+  const drinkOptions = [
+    { id: "gulaman", name: "Gulaman", price: 0 },
+    { id: "coke", name: "Coke", price: 10 }
+  ];
+
+  const state = {
+    flavors: new Set(),
+    addons: new Set(),
+    drink: "gulaman",
+    packed: false
+  };
+
+  function money(amount) {
+    return "₱" + amount;
+  }
+
+  function selectedItems() {
+    const flavors = flavorOptions.filter(item => state.flavors.has(item.id));
+    const addons = addonOptions.filter(item => state.addons.has(item.id));
+    const drink = drinkOptions.find(item => item.id === state.drink);
+    return { flavors, addons, drink };
+  }
+
+  function currentTotal() {
+    const selected = selectedItems();
+    return 49
+      + selected.flavors.reduce((sum, item) => sum + item.price, 0)
+      + selected.addons.reduce((sum, item) => sum + item.price, 0)
+      + selected.drink.price;
+  }
+
+  function renderMenu() {
+    const flavorButtons = flavorOptions.map(item => `
+      <button
+        type="button"
+        class="frysip-option ${state.flavors.has(item.id) ? "is-selected" : ""}"
+        data-type="flavor"
+        data-id="${item.id}"
+        aria-pressed="${state.flavors.has(item.id)}"
+      >
+        <span class="frysip-option-image">
+          <img src="${images[item.id]}" alt="">
+        </span>
+        <span class="frysip-option-label">${item.name}</span>
+        <span class="frysip-option-price">${item.price ? "+" + money(item.price) : "Included"}</span>
+      </button>
+    `).join("");
+
+    const addonButtons = addonOptions.map(item => `
+      <button
+        type="button"
+        class="frysip-option ${state.addons.has(item.id) ? "is-selected" : ""}"
+        data-type="addon"
+        data-id="${item.id}"
+        aria-pressed="${state.addons.has(item.id)}"
+      >
+        <span class="frysip-option-image">
+          <img src="${images[item.id]}" alt="">
+        </span>
+        <span class="frysip-option-label">${item.name}</span>
+        <span class="frysip-option-price">+${money(item.price)}</span>
+      </button>
+    `).join("");
+
+    const drinkButtons = drinkOptions.map(item => `
+      <button
+        type="button"
+        class="frysip-option ${state.drink === item.id ? "is-selected" : ""}"
+        data-type="drink"
+        data-id="${item.id}"
+        aria-pressed="${state.drink === item.id}"
+      >
+        <span class="frysip-option-image">
+          <span style="font-size:34px">${item.id === "gulaman" ? "🥤" : "🥤"}</span>
+        </span>
+        <span class="frysip-option-label">${item.name}</span>
+        <span class="frysip-option-price">${item.price ? "+" + money(item.price) : "Included"}</span>
+      </button>
+    `).join("");
+
+    menu.innerHTML = `
+      <div style="width:100%;font-weight:900;color:#17235f;text-transform:uppercase">Fries flavors · choose any</div>
+      ${flavorButtons}
+      <div style="width:100%;border-top:1px solid #0002;margin:6px 0"></div>
+      <div style="width:100%;font-weight:900;color:#17235f;text-transform:uppercase">Add-ons · choose any</div>
+      ${addonButtons}
+      <div style="width:100%;border-top:1px solid #0002;margin:6px 0"></div>
+      <div style="width:100%;font-weight:900;color:#17235f;text-transform:uppercase">Drink · choose one</div>
+      ${drinkButtons}
+    `;
+
+    banner.textContent = "Build your cup";
+  }
+
+  function renderCup() {
+    const fries = root.querySelector("#frysip-fries");
+    const poppers = root.querySelector("#frysip-poppers");
+    const hotdogs = root.querySelector("#frysip-hotdogs");
+
+    const selectedFlavor = flavorOptions.find(item =>
+      state.flavors.has(item.id)
+    );
+
+    fries.classList.toggle("is-visible", state.flavors.size > 0);
+    fries.dataset.flavor = selectedFlavor ? selectedFlavor.id : "sourcream";
+
+    poppers.classList.toggle("is-visible", state.addons.has("poppers"));
+    hotdogs.classList.toggle("is-visible", state.addons.has("hotdogs"));
+
+    lowerCup.dataset.drink = state.drink;
+    drinkName.textContent = state.drink === "coke" ? "COKE" : "GULAMAN";
+  }
+
+  function renderReceipt() {
+    const selected = selectedItems();
+    const allRows = [
+      ...selected.flavors.map(item => ({ name: item.name, price: item.price })),
+      ...selected.addons.map(item => ({ name: item.name, price: item.price })),
+      { name: selected.drink.name, price: selected.drink.price }
+    ];
+
+    rows.innerHTML = allRows.map(item => `
+      <div class="frysip-receipt-row is-on">
+        <span>${item.name}</span>
+        <span>${item.price ? money(item.price) : "Included"}</span>
+      </div>
+    `).join("") || `
+      <div class="frysip-receipt-row">
+        <span>No ingredients selected</span>
+        <span>---</span>
+      </div>
+    `;
+
+    total.textContent = money(currentTotal());
+    price.textContent = money(currentTotal());
+    pack.disabled = state.flavors.size === 0 || state.packed;
+    pack.textContent = state.packed ? "Cup completed!" : "Complete your cup";
+  }
+
+  menu.addEventListener("click", event => {
+    const button = event.target.closest(".frysip-option");
+    if (!button) return;
+
+    const id = button.dataset.id;
+    const type = button.dataset.type;
+
+    if (type === "flavor") {
+      state.flavors.has(id) ? state.flavors.delete(id) : state.flavors.add(id);
+    } else if (type === "addon") {
+      state.addons.has(id) ? state.addons.delete(id) : state.addons.add(id);
+    } else if (type === "drink") {
+      state.drink = id;
+    }
+
+    state.packed = false;
+    renderMenu();
+    renderCup();
+    renderReceipt();
+  });
+
+  pack.addEventListener("click", () => {
+    state.packed = true;
+    banner.textContent = "Your FRYSIP cup is ready!";
+    renderReceipt();
+  });
+
+  root.querySelector("#frysip-reset").addEventListener("click", () => {
+    state.flavors.clear();
+    state.addons.clear();
+    state.drink = "gulaman";
+    state.packed = false;
+    renderMenu();
+    renderCup();
+    renderReceipt();
+  });
+
+  renderMenu();
+  renderCup();
+  renderReceipt();
+})();
+</script>
